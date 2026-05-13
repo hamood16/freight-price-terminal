@@ -1,0 +1,7 @@
+route_id,origin_port,origin_country,origin_lat,origin_lng,destination_port,destination_country,destination_lat,destination_lng,carrier,service_type,product_category,container_type,currency,current_price_per_kg,previous_price_per_kg,transit_days,last_updated
+RTE-001,Shanghai,China,31.2304,121.4737,Los Angeles,United States,33.7405,-118.2775,Maersk,standard,clothing,40ft,USD,1.42,1.25,18,2026-05-10
+RTE-002,Rotterdam,Netherlands,51.9244,4.4777,New York,United States,40.7128,-74.0060,MSC,standard,vehicles,40ft,USD,2.10,2.35,12,2026-05-10
+RTE-003,Dubai,United Arab Emirates,25.2048,55.2708,Felixstowe,United Kingdom,51.9542,1.3511,CMA CGM,express,food,20ft refrigerated,USD,1.80,1.80,16,2026-05-11
+RTE-004,Santos,Brazil,-23.9608,-46.3336,Hamburg,Germany,53.5511,9.9937,Hapag-Lloyd,standard,food,20ft refrigerated,USD,1.15,,20,2026-05-11
+RTE-005,Singapore,Singapore,1.3521,103.8198,Melbourne,Australia,-37.8136,144.9631,Evergreen,standard,electronics,40ft,USD,1.65,0,10,2026-05-09
+RTE-006,Mumbai,India,19.0760,72.8777,Mombasa,Kenya,-4.0435,39.6682,ONE,standard,clothing,20ft,USD,0.95,1.05,14,2026-05-09
