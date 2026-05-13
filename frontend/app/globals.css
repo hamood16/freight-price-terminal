@@ -12,15 +12,41 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.maplibregl-canvas {
+  outline: none;
+}
+
+.route-map-shell {
+  position: relative;
+  height: 520px;
+  min-height: 520px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .route-map-shell {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+.route-map-viewport {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.route-map-viewport .maplibregl-canvas-container,
+.route-map-viewport .maplibregl-canvas {
+  display: block;
+  height: 100% !important;
+  width: 100% !important;
 }
