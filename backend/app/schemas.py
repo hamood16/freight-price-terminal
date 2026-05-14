@@ -32,3 +32,21 @@ class ShippingRoute(BaseModel):
     pricing: RoutePricing
     transit_days: int
     last_updated: str
+
+
+class RouteDetailMetrics(BaseModel):
+    reliability_pct: int
+    average_transit_days: int
+    delay_risk: str
+    port_congestion_level: str
+    sailings_per_week: int
+    transshipment_count: int
+    customs_complexity: str
+    fuel_surcharge_risk: str
+    weather_disruption_risk: str
+    operational_note: str
+
+
+class RouteDetailResponse(BaseModel):
+    route: ShippingRoute
+    details: RouteDetailMetrics

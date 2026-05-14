@@ -14,6 +14,7 @@ type RouteListPanelProps = {
   onApplyFilters: () => void;
   onClearFilters: () => void;
   onFiltersChange: (filters: RouteFilters) => void;
+  onRouteSelect: (routeId: string) => void;
   routes: ShippingRoute[];
 };
 
@@ -45,6 +46,7 @@ export function RouteListPanel({
   onApplyFilters,
   onClearFilters,
   onFiltersChange,
+  onRouteSelect,
   routes,
 }: RouteListPanelProps) {
   const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
@@ -227,9 +229,11 @@ export function RouteListPanel({
           </div>
         ) : (
           routes.map((route) => (
-          <article
+          <button
             key={route.route_id}
-            className="w-full min-w-0 rounded-lg border border-zinc-200 bg-white p-4"
+            className="w-full min-w-0 rounded-lg border border-zinc-200 bg-white p-4 text-left transition-colors hover:border-emerald-300 hover:bg-emerald-50/30 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            onClick={() => onRouteSelect(route.route_id)}
+            type="button"
           >
             <div className="flex min-w-0 flex-wrap items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
@@ -277,7 +281,7 @@ export function RouteListPanel({
                 </div>
               </div>
             </div>
-          </article>
+          </button>
           ))
         )}
       </div>

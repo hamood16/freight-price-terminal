@@ -3,10 +3,11 @@ from typing import Any
 
 import pandas as pd
 
-from app.schemas import MovementStatus, ShippingRoute
+from app.schemas import MovementStatus, RouteDetailResponse, ShippingRoute
 
 
 DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "routes.csv"
+DETAILS_DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "route_details.csv"
 
 
 def calculate_price_change_pct(
@@ -64,6 +65,47 @@ def get_routes(filters: dict[str, FilterValue] | None = None) -> list[ShippingRo
         ]
 
     return routes
+
+
+def get_route_detail(route_id: str) -> RouteDetailResponse | None:
+    routes = get_routes()
+    route = next(
+        (
+            current_route
+            for current_route in routes
+            if current_route.route_id.casefold() == route_id.casefold()
+        ),
+        None,
+    )
+
+    if route is None:
+        return None
+
+    details_df = pd.read_csv(DETAILS_DATA_PATH)
+    matching_details = details_df[
+        details_df["route_id"].astype(str).str.casefold() == route_id.casefold()
+    ]
+
+    if matching_details.empty:
+        return None
+
+    detail_row = matching_details.iloc[0].to_dict()
+
+    return RouteDetailResponse(
+        route=route,
+        details={
+            "reliability_pct": int(detail_row["reliability_pct"]),
+            "average_transit_days": int(detail_row["average_transit_days"]),
+            "delay_risk": detail_row["delay_risk"],
+            "port_congestion_level": detail_row["port_congestion_level"],
+            "sailings_per_week": int(detail_row["sailings_per_week"]),
+            "transshipment_count": int(detail_row["transshipment_count"]),
+            "customs_complexity": detail_row["customs_complexity"],
+            "fuel_surcharge_risk": detail_row["fuel_surcharge_risk"],
+            "weather_disruption_risk": detail_row["weather_disruption_risk"],
+            "operational_note": detail_row["operational_note"],
+        },
+    )
 
 
 def _apply_filters(

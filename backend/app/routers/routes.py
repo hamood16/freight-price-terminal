@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, HTTPException, Query
 
-from app.schemas import ShippingRoute
-from app.services.routes_service import get_routes
+from app.schemas import RouteDetailResponse, ShippingRoute
+from app.services.routes_service import get_route_detail, get_routes
 
 
 router = APIRouter()
@@ -28,3 +28,13 @@ def list_routes(
             "movement_status": movement_status,
         }
     )
+
+
+@router.get("/routes/{route_id}", response_model=RouteDetailResponse)
+def retrieve_route_detail(route_id: str) -> RouteDetailResponse:
+    route_detail = get_route_detail(route_id)
+
+    if route_detail is None:
+        raise HTTPException(status_code=404, detail="Route not found")
+
+    return route_detail
