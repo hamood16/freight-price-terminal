@@ -10,7 +10,7 @@ def test_routes_returns_data() -> None:
     response = client.get("/routes")
 
     assert response.status_code == 200
-    assert len(response.json()) > 0
+    assert len(response.json()) == 100
 
 
 def test_routes_response_contains_expected_canonical_fields() -> None:
@@ -51,8 +51,8 @@ def test_routes_filters_by_origin_country() -> None:
     routes = response.json()
 
     assert response.status_code == 200
-    assert len(routes) == 1
-    assert routes[0]["origin"]["country"] == "China"
+    assert len(routes) == 9
+    assert all(route["origin"]["country"] == "China" for route in routes)
 
 
 def test_routes_filters_by_destination_country() -> None:
@@ -61,7 +61,7 @@ def test_routes_filters_by_destination_country() -> None:
     routes = response.json()
 
     assert response.status_code == 200
-    assert len(routes) == 2
+    assert len(routes) == 18
     assert all(route["destination"]["country"] == "United States" for route in routes)
 
 
@@ -71,7 +71,7 @@ def test_routes_filters_by_product_category() -> None:
     routes = response.json()
 
     assert response.status_code == 200
-    assert len(routes) == 2
+    assert len(routes) == 11
     assert all(route["product_category"] == "clothing" for route in routes)
 
 
@@ -81,8 +81,231 @@ def test_routes_filters_by_carrier() -> None:
     routes = response.json()
 
     assert response.status_code == 200
+    assert len(routes) == 15
+    assert all(route["carrier"] == "MSC" for route in routes)
+
+
+def test_routes_filters_by_origin_port_and_country() -> None:
+    response = client.get(
+        "/routes",
+        params={"origin_port": "Dubai", "origin_country": "United Arab Emirates"},
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 4
+    assert all(route["origin"]["port"] == "Dubai" for route in routes)
+    assert all(
+        route["origin"]["country"] == "United Arab Emirates" for route in routes
+    )
+
+
+def test_routes_filters_by_multiple_origin_ports_and_countries() -> None:
+    response = client.get(
+        "/routes",
+        params=[
+            ("origin_port", "Dubai"),
+            ("origin_country", "United Arab Emirates"),
+            ("origin_port", "Fujairah"),
+            ("origin_country", "United Arab Emirates"),
+        ],
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 6
+    assert {
+        (route["origin"]["port"], route["origin"]["country"]) for route in routes
+    } == {
+        ("Dubai", "United Arab Emirates"),
+        ("Fujairah", "United Arab Emirates"),
+    }
+
+
+def test_routes_filters_by_destination_port_and_country() -> None:
+    response = client.get(
+        "/routes",
+        params={
+            "destination_port": "Southampton",
+            "destination_country": "United Kingdom",
+        },
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 11
+    assert all(route["destination"]["port"] == "Southampton" for route in routes)
+    assert all(route["destination"]["country"] == "United Kingdom" for route in routes)
+
+
+def test_routes_filters_by_multiple_destination_ports_and_countries() -> None:
+    response = client.get(
+        "/routes",
+        params=[
+            ("destination_port", "Southampton"),
+            ("destination_country", "United Kingdom"),
+            ("destination_port", "Felixstowe"),
+            ("destination_country", "United Kingdom"),
+        ],
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 18
+    assert {
+        (route["destination"]["port"], route["destination"]["country"])
+        for route in routes
+    } == {
+        ("Southampton", "United Kingdom"),
+        ("Felixstowe", "United Kingdom"),
+    }
+
+
+def test_routes_filters_by_movement_status() -> None:
+    response = client.get("/routes", params={"movement_status": "increase"})
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 26
+    assert all(
+        route["pricing"]["movement_status"] == "increase" for route in routes
+    )
+
+
+def test_routes_filters_by_movement_status_case_insensitively() -> None:
+    response = client.get("/routes", params={"movement_status": "UNKNOWN"})
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 24
+    assert all(route["pricing"]["movement_status"] == "unknown" for route in routes)
+
+
+def test_routes_filters_by_all_movement_statuses() -> None:
+    expected_counts = {
+        "increase": 26,
+        "decrease": 27,
+        "stable": 23,
+        "unknown": 24,
+    }
+
+    for movement_status, expected_count in expected_counts.items():
+        response = client.get(
+            "/routes",
+            params={"movement_status": movement_status},
+        )
+        routes = response.json()
+
+        assert response.status_code == 200
+        assert len(routes) == expected_count
+        assert all(
+            route["pricing"]["movement_status"] == movement_status
+            for route in routes
+        )
+
+
+def test_routes_combines_carrier_and_derived_filters() -> None:
+    response = client.get(
+        "/routes",
+        params={"carrier": "CMA CGM", "movement_status": "unknown"},
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 3
+    assert all(route["carrier"] == "CMA CGM" for route in routes)
+    assert all(route["pricing"]["movement_status"] == "unknown" for route in routes)
+
+
+def test_routes_combines_product_category_departure_and_arrival_port() -> None:
+    response = client.get(
+        "/routes",
+        params={
+            "product_category": "vehicles",
+            "origin_port": "Dubai",
+            "origin_country": "United Arab Emirates",
+            "destination_port": "Southampton",
+            "destination_country": "United Kingdom",
+        },
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
     assert len(routes) == 1
-    assert routes[0]["carrier"] == "MSC"
+    assert routes[0]["product_category"] == "vehicles"
+    assert routes[0]["origin"]["port"] == "Dubai"
+    assert routes[0]["origin"]["country"] == "United Arab Emirates"
+    assert routes[0]["destination"]["port"] == "Southampton"
+    assert routes[0]["destination"]["country"] == "United Kingdom"
+
+
+def test_routes_combines_multi_origin_multi_destination_and_product_category() -> None:
+    response = client.get(
+        "/routes",
+        params=[
+            ("product_category", "vehicles"),
+            ("origin_port", "Dubai"),
+            ("origin_country", "United Arab Emirates"),
+            ("origin_port", "Fujairah"),
+            ("origin_country", "United Arab Emirates"),
+            ("origin_port", "Jeddah"),
+            ("origin_country", "Saudi Arabia"),
+            ("destination_port", "Southampton"),
+            ("destination_country", "United Kingdom"),
+            ("destination_port", "Felixstowe"),
+            ("destination_country", "United Kingdom"),
+            ("destination_port", "Newcastle"),
+            ("destination_country", "United Kingdom"),
+            ("destination_port", "London Gateway"),
+            ("destination_country", "United Kingdom"),
+        ],
+    )
+
+    routes = response.json()
+
+    assert response.status_code == 200
+    assert len(routes) == 7
+    assert all(route["product_category"] == "vehicles" for route in routes)
+    assert {
+        (route["origin"]["port"], route["origin"]["country"]) for route in routes
+    } <= {
+        ("Dubai", "United Arab Emirates"),
+        ("Fujairah", "United Arab Emirates"),
+        ("Jeddah", "Saudi Arabia"),
+    }
+    assert {
+        (route["destination"]["port"], route["destination"]["country"])
+        for route in routes
+    } <= {
+        ("Southampton", "United Kingdom"),
+        ("Felixstowe", "United Kingdom"),
+        ("Newcastle", "United Kingdom"),
+        ("London Gateway", "United Kingdom"),
+    }
+
+
+def test_routes_returns_empty_list_for_no_match_multi_port_filters() -> None:
+    response = client.get(
+        "/routes",
+        params=[
+            ("product_category", "vehicles"),
+            ("origin_port", "Fujairah"),
+            ("origin_country", "United Arab Emirates"),
+            ("destination_port", "Miami"),
+            ("destination_country", "United States"),
+        ],
+    )
+
+    assert response.status_code == 200
+    assert response.json() == []
 
 
 def test_routes_returns_empty_list_for_no_matches() -> None:

@@ -5,3 +5,97 @@ RTE-003,Dubai,United Arab Emirates,25.2048,55.2708,Felixstowe,United Kingdom,51.
 RTE-004,Santos,Brazil,-23.9608,-46.3336,Hamburg,Germany,53.5511,9.9937,Hapag-Lloyd,standard,food,20ft refrigerated,USD,1.15,,20,2026-05-11
 RTE-005,Singapore,Singapore,1.3521,103.8198,Melbourne,Australia,-37.8136,144.9631,Evergreen,standard,electronics,40ft,USD,1.65,0,10,2026-05-09
 RTE-006,Mumbai,India,19.0760,72.8777,Mombasa,Kenya,-4.0435,39.6682,ONE,standard,clothing,20ft,USD,0.95,1.05,14,2026-05-09
+RTE-007,Ningbo,China,29.8683,121.5440,Long Beach,United States,33.7701,-118.1937,Maersk,standard,electronics,40ft,USD,1.58,1.45,17,2026-05-12
+RTE-008,Qingdao,China,36.0671,120.3826,Vancouver,Canada,49.2827,-123.1207,COSCO,standard,furniture,40ft,USD,1.33,1.50,19,2026-05-12
+RTE-009,Busan,South Korea,35.1796,129.0756,Seattle,United States,47.6062,-122.3321,ONE,express,electronics,40ft,USD,1.90,1.90,13,2026-05-12
+RTE-010,Ho Chi Minh City,Vietnam,10.8231,106.6297,Oakland,United States,37.8044,-122.2712,MSC,standard,clothing,40ft,USD,1.22,0,22,2026-05-12
+RTE-011,Jakarta,Indonesia,-6.2088,106.8456,Rotterdam,Netherlands,51.9244,4.4777,CMA CGM,standard,food,20ft refrigerated,USD,1.72,1.58,26,2026-05-13
+RTE-012,Laem Chabang,Thailand,13.0833,100.8833,Hamburg,Germany,53.5511,9.9937,Hapag-Lloyd,standard,automotive parts,40ft,USD,1.48,1.62,28,2026-05-13
+RTE-013,Tokyo,Japan,35.6762,139.6503,Los Angeles,United States,33.7405,-118.2775,Evergreen,express,vehicles,40ft,USD,2.42,2.42,11,2026-05-13
+RTE-014,Yokohama,Japan,35.4437,139.6380,Auckland,New Zealand,-36.8485,174.7633,Maersk,standard,machinery,40ft,USD,2.05,,18,2026-05-13
+RTE-015,Jebel Ali,United Arab Emirates,25.0118,55.0612,Durban,South Africa,-29.8587,31.0218,MSC,standard,food,20ft refrigerated,USD,1.36,1.21,14,2026-05-14
+RTE-016,Colombo,Sri Lanka,6.9271,79.8612,Antwerp,Belgium,51.2194,4.4025,CMA CGM,standard,clothing,40ft,USD,1.18,1.30,24,2026-05-14
+RTE-017,Chennai,India,13.0827,80.2707,Barcelona,Spain,41.3874,2.1686,COSCO,standard,textiles,40ft,USD,1.08,1.08,23,2026-05-14
+RTE-018,Karachi,Pakistan,24.8607,67.0011,London Gateway,United Kingdom,51.5072,0.5077,ONE,standard,clothing,40ft,USD,1.01,0,25,2026-05-14
+RTE-019,Port Klang,Malaysia,3.0319,101.3928,Sydney,Australia,-33.8688,151.2093,Evergreen,express,electronics,40ft,USD,1.74,1.59,9,2026-05-15
+RTE-020,Manila,Philippines,14.5995,120.9842,San Francisco,United States,37.7749,-122.4194,Hapag-Lloyd,standard,ecommerce,40ft,USD,1.49,1.66,20,2026-05-15
+RTE-021,Valencia,Spain,39.4699,-0.3763,Casablanca,Morocco,33.5731,-7.5898,Maersk,standard,food,20ft refrigerated,USD,0.88,0.88,5,2026-05-15
+RTE-022,Le Havre,France,49.4944,0.1079,Montreal,Canada,45.5019,-73.5674,MSC,standard,wine and beverages,20ft,USD,1.26,,10,2026-05-15
+RTE-023,Genoa,Italy,44.4056,8.9463,Alexandria,Egypt,31.2001,29.9187,CMA CGM,standard,machinery,40ft,USD,1.39,1.24,7,2026-05-16
+RTE-024,Piraeus,Greece,37.9420,23.6469,Jeddah,Saudi Arabia,21.4858,39.1925,COSCO,standard,vehicles,40ft,USD,1.96,2.10,9,2026-05-16
+RTE-025,Gdansk,Poland,54.3520,18.6466,Shanghai,China,31.2304,121.4737,Hapag-Lloyd,standard,chemicals,40ft,USD,1.70,1.70,31,2026-05-16
+RTE-026,New York,United States,40.7128,-74.0060,Santos,Brazil,-23.9608,-46.3336,ONE,standard,ecommerce,40ft,USD,1.31,0,15,2026-05-16
+RTE-027,Savannah,United States,32.0809,-81.0912,Rotterdam,Netherlands,51.9244,4.4777,Evergreen,standard,agriculture,40ft,USD,1.12,1.00,13,2026-05-17
+RTE-028,Houston,United States,29.7604,-95.3698,Singapore,Singapore,1.3521,103.8198,Maersk,standard,chemicals,40ft,USD,1.83,2.02,29,2026-05-17
+RTE-029,Callao,Peru,-12.0464,-77.0428,Shanghai,China,31.2304,121.4737,MSC,standard,agriculture,40ft,USD,1.44,1.44,33,2026-05-17
+RTE-030,Cape Town,South Africa,-33.9249,18.4241,London Gateway,United Kingdom,51.5072,0.5077,CMA CGM,standard,wine and beverages,20ft,USD,1.09,,17,2026-05-17
+RTE-031,Dubai,United Arab Emirates,25.2048,55.2708,Southampton,United Kingdom,50.9097,-1.4044,Maersk,standard,vehicles,40ft,USD,2.24,2.05,18,2026-05-18
+RTE-032,Dubai,United Arab Emirates,25.2048,55.2708,Felixstowe,United Kingdom,51.9542,1.3511,MSC,standard,vehicles,40ft,USD,2.08,2.22,17,2026-05-18
+RTE-033,Jeddah,Saudi Arabia,21.4858,39.1925,Southampton,United Kingdom,50.9097,-1.4044,CMA CGM,standard,vehicles,40ft,USD,2.16,2.16,15,2026-05-18
+RTE-034,Karachi,Pakistan,24.8607,67.0011,Southampton,United Kingdom,50.9097,-1.4044,Hapag-Lloyd,standard,clothing,40ft,USD,1.06,0,24,2026-05-18
+RTE-035,Mundra,India,22.8396,69.7213,Felixstowe,United Kingdom,51.9542,1.3511,ONE,standard,clothing,40ft,USD,1.12,1.00,21,2026-05-18
+RTE-036,Cochin,India,9.9312,76.2673,London Gateway,United Kingdom,51.5072,0.5077,Evergreen,standard,clothing,40ft,USD,1.04,1.16,26,2026-05-18
+RTE-037,Visakhapatnam,India,17.6868,83.2185,Southampton,United Kingdom,50.9097,-1.4044,COSCO,standard,textiles,40ft,USD,1.18,1.18,27,2026-05-18
+RTE-038,Alexandria,Egypt,31.2001,29.9187,Jebel Ali,United Arab Emirates,25.0118,55.0612,Maersk,standard,food,20ft refrigerated,USD,1.21,,8,2026-05-19
+RTE-039,Mersin,Turkey,36.8121,34.6415,Rotterdam,Netherlands,51.9244,4.4777,MSC,standard,food,20ft refrigerated,USD,1.34,1.20,9,2026-05-19
+RTE-040,Reefer Terminal Valparaiso,Chile,-33.0472,-71.6127,Los Angeles,United States,33.7405,-118.2775,CMA CGM,express,food,20ft refrigerated,USD,1.88,2.04,15,2026-05-19
+RTE-041,Dalian,China,38.9140,121.6147,Los Angeles,United States,33.7405,-118.2775,Hapag-Lloyd,standard,electronics,40ft,USD,1.55,1.55,16,2026-05-19
+RTE-042,Xiamen,China,24.4798,118.0894,Melbourne,Australia,-37.8136,144.9631,ONE,standard,electronics,40ft,USD,1.68,0,12,2026-05-19
+RTE-043,Shenzhen,China,22.5431,114.0579,Oakland,United States,37.8044,-122.2712,Evergreen,express,electronics,40ft,USD,1.82,1.62,15,2026-05-20
+RTE-044,Kaohsiung,Taiwan,22.6273,120.3014,Seattle,United States,47.6062,-122.3321,COSCO,standard,electronics,40ft,USD,1.62,1.77,14,2026-05-20
+RTE-045,Doha,Qatar,25.2854,51.5310,Hamburg,Germany,53.5511,9.9937,Maersk,standard,chemicals,40ft,USD,1.72,1.72,19,2026-05-20
+RTE-046,Dammam,Saudi Arabia,26.4207,50.0888,Antwerp,Belgium,51.2194,4.4025,MSC,standard,chemicals,40ft,USD,1.67,,18,2026-05-20
+RTE-047,Abu Dhabi,United Arab Emirates,24.4539,54.3773,Barcelona,Spain,41.3874,2.1686,CMA CGM,standard,machinery,40ft,USD,1.93,1.75,16,2026-05-20
+RTE-048,Muscat,Oman,23.5880,58.3829,Genoa,Italy,44.4056,8.9463,Hapag-Lloyd,standard,machinery,40ft,USD,1.81,1.98,14,2026-05-21
+RTE-049,London Gateway,United Kingdom,51.5072,0.5077,Jeddah,Saudi Arabia,21.4858,39.1925,ONE,standard,vehicles,40ft,USD,2.02,2.02,13,2026-05-21
+RTE-050,Southampton,United Kingdom,50.9097,-1.4044,Dubai,United Arab Emirates,25.2048,55.2708,Evergreen,standard,ecommerce,40ft,USD,1.39,0,17,2026-05-21
+RTE-051,Liverpool,United Kingdom,53.4084,-2.9916,New York,United States,40.7128,-74.0060,COSCO,standard,food,20ft refrigerated,USD,1.47,1.33,11,2026-05-21
+RTE-052,Dublin,Ireland,53.3498,-6.2603,Montreal,Canada,45.5019,-73.5674,Maersk,standard,pharmaceuticals,20ft refrigerated,USD,2.35,2.50,10,2026-05-21
+RTE-053,Reykjavik,Iceland,64.1466,-21.9426,Rotterdam,Netherlands,51.9244,4.4777,MSC,standard,food,20ft refrigerated,USD,1.58,1.58,7,2026-05-22
+RTE-054,Lagos,Nigeria,6.5244,3.3792,Hamburg,Germany,53.5511,9.9937,CMA CGM,standard,agriculture,40ft,USD,1.27,,18,2026-05-22
+RTE-055,Tema,Ghana,5.6037,-0.1870,Antwerp,Belgium,51.2194,4.4025,Hapag-Lloyd,standard,agriculture,40ft,USD,1.19,1.05,16,2026-05-22
+RTE-056,Mombasa,Kenya,-4.0435,39.6682,Dubai,United Arab Emirates,25.2048,55.2708,ONE,standard,food,20ft refrigerated,USD,1.25,1.41,9,2026-05-22
+RTE-057,Dar es Salaam,Tanzania,-6.7924,39.2083,Karachi,Pakistan,24.8607,67.0011,Evergreen,standard,food,20ft refrigerated,USD,1.11,1.11,12,2026-05-22
+RTE-058,Buenos Aires,Argentina,-34.6037,-58.3816,Shanghai,China,31.2304,121.4737,COSCO,standard,agriculture,40ft,USD,1.52,0,35,2026-05-23
+RTE-059,Montevideo,Uruguay,-34.9011,-56.1645,Barcelona,Spain,41.3874,2.1686,Maersk,standard,wine and beverages,20ft,USD,1.18,1.06,20,2026-05-23
+RTE-060,Port of Tauranga,New Zealand,-37.6878,176.1651,Tokyo,Japan,35.6762,139.6503,MSC,standard,meat and dairy,20ft refrigerated,USD,1.94,2.08,19,2026-05-23
+RTE-061,Fujairah,United Arab Emirates,25.1288,56.3265,Southampton,United Kingdom,50.9097,-1.4044,Hapag-Lloyd,standard,vehicles,40ft,USD,2.18,2.01,17,2026-05-24
+RTE-062,Fujairah,United Arab Emirates,25.1288,56.3265,London Gateway,United Kingdom,51.5072,0.5077,ONE,standard,vehicles,40ft,USD,2.05,2.22,18,2026-05-24
+RTE-063,Jeddah,Saudi Arabia,21.4858,39.1925,Newcastle,United Kingdom,54.9783,-1.6178,Evergreen,standard,vehicles,40ft,USD,2.11,2.11,16,2026-05-24
+RTE-064,Dubai,United Arab Emirates,25.2048,55.2708,Newcastle,United Kingdom,54.9783,-1.6178,COSCO,standard,vehicles,40ft,USD,2.30,,19,2026-05-24
+RTE-065,Doha,Qatar,25.2854,51.5310,Southampton,United Kingdom,50.9097,-1.4044,Maersk,standard,vehicles,40ft,USD,2.09,1.96,17,2026-05-24
+RTE-066,Dammam,Saudi Arabia,26.4207,50.0888,Felixstowe,United Kingdom,51.9542,1.3511,MSC,standard,vehicles,40ft,USD,2.03,2.18,16,2026-05-24
+RTE-067,Mundra,India,22.8396,69.7213,Southampton,United Kingdom,50.9097,-1.4044,CMA CGM,standard,clothing,40ft,USD,1.14,1.02,21,2026-05-25
+RTE-068,Nhava Sheva,India,18.9490,72.9512,Felixstowe,United Kingdom,51.9542,1.3511,Hapag-Lloyd,standard,clothing,40ft,USD,1.09,1.20,22,2026-05-25
+RTE-069,Tuticorin,India,8.7642,78.1348,London Gateway,United Kingdom,51.5072,0.5077,ONE,standard,clothing,40ft,USD,1.02,1.02,25,2026-05-25
+RTE-070,Kandla,India,23.0333,70.2167,Newcastle,United Kingdom,54.9783,-1.6178,Evergreen,standard,textiles,40ft,USD,1.16,0,26,2026-05-25
+RTE-071,Shanghai,China,31.2304,121.4737,Southampton,United Kingdom,50.9097,-1.4044,COSCO,standard,electronics,40ft,USD,1.76,1.59,29,2026-05-25
+RTE-072,Shenzhen,China,22.5431,114.0579,Felixstowe,United Kingdom,51.9542,1.3511,Maersk,express,electronics,40ft,USD,1.89,2.05,27,2026-05-25
+RTE-073,Ningbo,China,29.8683,121.5440,London Gateway,United Kingdom,51.5072,0.5077,MSC,standard,electronics,40ft,USD,1.61,1.61,30,2026-05-25
+RTE-074,Kaohsiung,Taiwan,22.6273,120.3014,Southampton,United Kingdom,50.9097,-1.4044,CMA CGM,standard,electronics,40ft,USD,1.72,,28,2026-05-26
+RTE-075,Busan,South Korea,35.1796,129.0756,Hamburg,Germany,53.5511,9.9937,Hapag-Lloyd,standard,electronics,40ft,USD,1.67,1.50,31,2026-05-26
+RTE-076,Melbourne,Australia,-37.8136,144.9631,Tokyo,Japan,35.6762,139.6503,ONE,standard,raw materials,40ft,USD,1.33,1.49,18,2026-05-26
+RTE-077,Brisbane,Australia,-27.4698,153.0251,Shanghai,China,31.2304,121.4737,Evergreen,standard,raw materials,40ft,USD,1.25,1.25,20,2026-05-26
+RTE-078,Newcastle,Australia,-32.9283,151.7817,Qingdao,China,36.0671,120.3826,COSCO,standard,raw materials,40ft,USD,1.18,0,21,2026-05-26
+RTE-079,Vancouver,Canada,49.2827,-123.1207,Yokohama,Japan,35.4437,139.6380,Maersk,standard,raw materials,40ft,USD,1.42,1.30,15,2026-05-26
+RTE-080,Prince Rupert,Canada,54.3150,-130.3208,Busan,South Korea,35.1796,129.0756,MSC,standard,raw materials,40ft,USD,1.36,1.52,14,2026-05-27
+RTE-081,Antwerp,Belgium,51.2194,4.4025,Dubai,United Arab Emirates,25.2048,55.2708,CMA CGM,standard,pharmaceuticals,20ft refrigerated,USD,2.42,2.42,14,2026-05-27
+RTE-082,Rotterdam,Netherlands,51.9244,4.4777,Jeddah,Saudi Arabia,21.4858,39.1925,Hapag-Lloyd,express,pharmaceuticals,20ft refrigerated,USD,2.55,,12,2026-05-27
+RTE-083,Hamburg,Germany,53.5511,9.9937,Karachi,Pakistan,24.8607,67.0011,ONE,standard,machinery,40ft,USD,1.74,1.58,20,2026-05-27
+RTE-084,Bremerhaven,Germany,53.5396,8.5809,Jebel Ali,United Arab Emirates,25.0118,55.0612,Evergreen,standard,machinery,40ft,USD,1.69,1.84,18,2026-05-27
+RTE-085,Gothenburg,Sweden,57.7089,11.9746,Doha,Qatar,25.2854,51.5310,COSCO,standard,machinery,40ft,USD,1.81,1.81,19,2026-05-27
+RTE-086,Oslo,Norway,59.9139,10.7522,New York,United States,40.7128,-74.0060,Maersk,standard,seafood,20ft refrigerated,USD,2.05,0,10,2026-05-28
+RTE-087,Reykjavik,Iceland,64.1466,-21.9426,Boston,United States,42.3601,-71.0589,MSC,express,seafood,20ft refrigerated,USD,2.14,1.97,8,2026-05-28
+RTE-088,Salalah,Oman,17.0194,54.0897,Rotterdam,Netherlands,51.9244,4.4777,CMA CGM,standard,food,20ft refrigerated,USD,1.45,1.60,15,2026-05-28
+RTE-089,Aqaba,Jordan,29.5321,35.0063,London Gateway,United Kingdom,51.5072,0.5077,Hapag-Lloyd,standard,agriculture,40ft,USD,1.22,1.22,13,2026-05-28
+RTE-090,Haifa,Israel,32.7940,34.9896,Felixstowe,United Kingdom,51.9542,1.3511,ONE,standard,agriculture,40ft,USD,1.29,,12,2026-05-28
+RTE-091,Izmir,Turkey,38.4237,27.1428,Southampton,United Kingdom,50.9097,-1.4044,Evergreen,standard,food,20ft refrigerated,USD,1.38,1.24,10,2026-05-29
+RTE-092,Tanger Med,Morocco,35.8880,-5.5100,London Gateway,United Kingdom,51.5072,0.5077,COSCO,standard,automotive parts,40ft,USD,1.51,1.66,8,2026-05-29
+RTE-093,Durban,South Africa,-29.8587,31.0218,Southampton,United Kingdom,50.9097,-1.4044,Maersk,standard,agriculture,40ft,USD,1.33,1.33,18,2026-05-29
+RTE-094,Maputo,Mozambique,-25.9692,32.5732,Jeddah,Saudi Arabia,21.4858,39.1925,MSC,standard,agriculture,40ft,USD,1.17,0,11,2026-05-29
+RTE-095,Walvis Bay,Namibia,-22.9576,14.5053,Hamburg,Germany,53.5511,9.9937,CMA CGM,standard,raw materials,40ft,USD,1.46,1.31,22,2026-05-29
+RTE-096,San Antonio,Chile,-33.5930,-71.6217,Rotterdam,Netherlands,51.9244,4.4777,Hapag-Lloyd,standard,wine and beverages,20ft,USD,1.21,1.37,24,2026-05-30
+RTE-097,Guayaquil,Ecuador,-2.1700,-79.9224,Los Angeles,United States,33.7405,-118.2775,ONE,standard,food,20ft refrigerated,USD,1.57,1.57,13,2026-05-30
+RTE-098,Veracruz,Mexico,19.1738,-96.1342,New York,United States,40.7128,-74.0060,Evergreen,standard,automotive parts,40ft,USD,1.44,,9,2026-05-30
+RTE-099,Kingston,Jamaica,17.9712,-76.7936,Miami,United States,25.7617,-80.1918,COSCO,standard,ecommerce,40ft,USD,1.12,1.01,5,2026-05-30
+RTE-100,Freeport,Bahamas,26.5333,-78.7000,Savannah,United States,32.0809,-81.0912,Maersk,standard,ecommerce,40ft,USD,1.08,1.20,4,2026-05-30

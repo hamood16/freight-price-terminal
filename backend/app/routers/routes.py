@@ -9,12 +9,13 @@ router = APIRouter()
 
 @router.get("/routes", response_model=list[ShippingRoute])
 def list_routes(
-    origin_country: str | None = Query(default=None),
-    destination_country: str | None = Query(default=None),
-    origin_port: str | None = Query(default=None),
-    destination_port: str | None = Query(default=None),
+    origin_country: list[str] | None = Query(default=None),
+    destination_country: list[str] | None = Query(default=None),
+    origin_port: list[str] | None = Query(default=None),
+    destination_port: list[str] | None = Query(default=None),
     product_category: str | None = Query(default=None),
     carrier: str | None = Query(default=None),
+    movement_status: str | None = Query(default=None),
 ) -> list[ShippingRoute]:
     return get_routes(
         {
@@ -24,5 +25,6 @@ def list_routes(
             "destination_port": destination_port,
             "product_category": product_category,
             "carrier": carrier,
+            "movement_status": movement_status,
         }
     )

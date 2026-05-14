@@ -1,8 +1,9 @@
 "use client";
 
 import maplibregl from "maplibre-gl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { RouteHoverTooltip } from "./RouteHoverTooltip";
 import type { MovementStatus, ShippingRoute } from "../types/routes";
 
 type RoutesMapProps = {
@@ -14,6 +15,8 @@ const KNOWN_SOURCE_ID = "known-routes";
 const UNKNOWN_SOURCE_ID = "unknown-routes";
 const KNOWN_LAYER_ID = "known-route-lines";
 const UNKNOWN_LAYER_ID = "unknown-route-lines";
+const KNOWN_HITBOX_LAYER_ID = "known-route-hitbox";
+const UNKNOWN_HITBOX_LAYER_ID = "unknown-route-hitbox";
 
 const lineColors: Record<MovementStatus, string> = {
   increase: "#dc2626",
@@ -25,6 +28,16 @@ const lineColors: Record<MovementStatus, string> = {
 export function RoutesMap({ routes }: RoutesMapProps) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
+  const routesRef = useRef(routes);
+  const [hoveredRoute, setHoveredRoute] = useState<{
+    left: number;
+    route: ShippingRoute;
+    top: number;
+  } | null>(null);
+
+  useEffect(() => {
+    routesRef.current = routes;
+  }, [routes]);
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) {
@@ -66,6 +79,34 @@ export function RoutesMap({ routes }: RoutesMapProps) {
       return;
     }
 
+    const showTooltip = (event: maplibregl.MapLayerMouseEvent) => {
+      const routeId = event.features?.[0]?.properties?.route_id;
+
+      if (typeof routeId !== "string") {
+        return;
+      }
+
+      const route = routesRef.current.find(
+        (currentRoute) => currentRoute.route_id === routeId,
+      );
+
+      if (!route) {
+        return;
+      }
+
+      map.getCanvas().style.cursor = "pointer";
+      setHoveredRoute({
+        left: event.point.x,
+        route,
+        top: event.point.y,
+      });
+    };
+
+    const hideTooltip = () => {
+      map.getCanvas().style.cursor = "";
+      setHoveredRoute(null);
+    };
+
     const renderRoutes = () => {
       map.resize();
       removeRouteLayers(map);
@@ -102,7 +143,7 @@ export function RoutesMap({ routes }: RoutesMapProps) {
             lineColors.stable,
             lineColors.unknown,
           ],
-          "line-width": 3,
+          "line-width": 2,
           "line-opacity": 0.85,
         },
       });
@@ -114,10 +155,37 @@ export function RoutesMap({ routes }: RoutesMapProps) {
         paint: {
           "line-color": lineColors.unknown,
           "line-dasharray": [2, 2],
-          "line-width": 3,
+          "line-width": 2,
           "line-opacity": 0.75,
         },
       });
+
+      map.addLayer({
+        id: KNOWN_HITBOX_LAYER_ID,
+        type: "line",
+        source: KNOWN_SOURCE_ID,
+        paint: {
+          "line-color": "#000000",
+          "line-opacity": 0,
+          "line-width": 14,
+        },
+      });
+
+      map.addLayer({
+        id: UNKNOWN_HITBOX_LAYER_ID,
+        type: "line",
+        source: UNKNOWN_SOURCE_ID,
+        paint: {
+          "line-color": "#000000",
+          "line-opacity": 0,
+          "line-width": 14,
+        },
+      });
+
+      map.on("mousemove", KNOWN_HITBOX_LAYER_ID, showTooltip);
+      map.on("mousemove", UNKNOWN_HITBOX_LAYER_ID, showTooltip);
+      map.on("mouseleave", KNOWN_HITBOX_LAYER_ID, hideTooltip);
+      map.on("mouseleave", UNKNOWN_HITBOX_LAYER_ID, hideTooltip);
 
       fitMapToRoutes(map, routes);
     };
@@ -130,6 +198,11 @@ export function RoutesMap({ routes }: RoutesMapProps) {
 
     return () => {
       map.off("load", renderRoutes);
+      map.off("mousemove", KNOWN_HITBOX_LAYER_ID, showTooltip);
+      map.off("mousemove", UNKNOWN_HITBOX_LAYER_ID, showTooltip);
+      map.off("mouseleave", KNOWN_HITBOX_LAYER_ID, hideTooltip);
+      map.off("mouseleave", UNKNOWN_HITBOX_LAYER_ID, hideTooltip);
+      hideTooltip();
     };
   }, [routes]);
 
@@ -147,6 +220,13 @@ export function RoutesMap({ routes }: RoutesMapProps) {
           <LegendItem color={lineColors.unknown} dashed label="Unknown" />
         </div>
       </div>
+      {hoveredRoute ? (
+        <RouteHoverTooltip
+          left={hoveredRoute.left}
+          route={hoveredRoute.route}
+          top={hoveredRoute.top}
+        />
+      ) : null}
     </section>
   );
 }
@@ -192,7 +272,12 @@ function buildRouteFeatureCollection(routes: ShippingRoute[]) {
 }
 
 function removeRouteLayers(map: maplibregl.Map) {
-  for (const layerId of [KNOWN_LAYER_ID, UNKNOWN_LAYER_ID]) {
+  for (const layerId of [
+    KNOWN_HITBOX_LAYER_ID,
+    UNKNOWN_HITBOX_LAYER_ID,
+    KNOWN_LAYER_ID,
+    UNKNOWN_LAYER_ID,
+  ]) {
     if (map.getLayer(layerId)) {
       map.removeLayer(layerId);
     }

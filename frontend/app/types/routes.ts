@@ -27,3 +27,16 @@ export type ShippingRoute = {
   transit_days: number;
   last_updated: string;
 };
+
+export type PortFilter = {
+  country: string;
+  port: string;
+};
+
+export type RouteFilters = {
+  carrier: string;
+  destination_ports: PortFilter[];
+  product_category: string;
+  movement_status: MovementStatus | "";
+  origin_ports: PortFilter[];
+};
