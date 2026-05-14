@@ -13,6 +13,42 @@ def test_routes_returns_data() -> None:
     assert len(response.json()) == 100
 
 
+def test_route_detail_lookup_returns_route_and_details() -> None:
+    response = client.get("/routes/RTE-001")
+
+    route_detail = response.json()
+
+    assert response.status_code == 200
+    assert route_detail["route"]["route_id"] == "RTE-001"
+    assert route_detail["route"]["origin"]["port"] == "Shanghai"
+    assert route_detail["route"]["destination"]["port"] == "Los Angeles"
+    assert route_detail["route"]["pricing"]["movement_status"] == "increase"
+    assert route_detail["details"]["reliability_pct"] == 79
+    assert route_detail["details"]["average_transit_days"] == 14
+    assert route_detail["details"]["delay_risk"] == "medium"
+    assert route_detail["details"]["port_congestion_level"] == "medium"
+    assert route_detail["details"]["sailings_per_week"] == 3
+    assert route_detail["details"]["transshipment_count"] == 3
+    assert route_detail["details"]["customs_complexity"] == "medium"
+    assert route_detail["details"]["fuel_surcharge_risk"] == "medium"
+    assert route_detail["details"]["weather_disruption_risk"] == "medium"
+    assert route_detail["details"]["operational_note"]
+
+
+def test_route_detail_lookup_is_case_insensitive() -> None:
+    response = client.get("/routes/rte-001")
+
+    assert response.status_code == 200
+    assert response.json()["route"]["route_id"] == "RTE-001"
+
+
+def test_route_detail_lookup_returns_404_for_invalid_route_id() -> None:
+    response = client.get("/routes/not-a-real-route")
+
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Route not found"}
+
+
 def test_routes_response_contains_expected_canonical_fields() -> None:
     response = client.get("/routes")
 

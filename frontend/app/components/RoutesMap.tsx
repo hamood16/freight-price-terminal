@@ -7,6 +7,7 @@ import { RouteHoverTooltip } from "./RouteHoverTooltip";
 import type { MovementStatus, ShippingRoute } from "../types/routes";
 
 type RoutesMapProps = {
+  onRouteSelect: (routeId: string) => void;
   routes: ShippingRoute[];
 };
 
@@ -25,7 +26,7 @@ const lineColors: Record<MovementStatus, string> = {
   unknown: "#71717a",
 };
 
-export function RoutesMap({ routes }: RoutesMapProps) {
+export function RoutesMap({ onRouteSelect, routes }: RoutesMapProps) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const routesRef = useRef(routes);
@@ -107,6 +108,14 @@ export function RoutesMap({ routes }: RoutesMapProps) {
       setHoveredRoute(null);
     };
 
+    const selectRoute = (event: maplibregl.MapLayerMouseEvent) => {
+      const routeId = event.features?.[0]?.properties?.route_id;
+
+      if (typeof routeId === "string") {
+        onRouteSelect(routeId);
+      }
+    };
+
     const renderRoutes = () => {
       map.resize();
       removeRouteLayers(map);
@@ -186,6 +195,8 @@ export function RoutesMap({ routes }: RoutesMapProps) {
       map.on("mousemove", UNKNOWN_HITBOX_LAYER_ID, showTooltip);
       map.on("mouseleave", KNOWN_HITBOX_LAYER_ID, hideTooltip);
       map.on("mouseleave", UNKNOWN_HITBOX_LAYER_ID, hideTooltip);
+      map.on("click", KNOWN_HITBOX_LAYER_ID, selectRoute);
+      map.on("click", UNKNOWN_HITBOX_LAYER_ID, selectRoute);
 
       fitMapToRoutes(map, routes);
     };
@@ -202,9 +213,11 @@ export function RoutesMap({ routes }: RoutesMapProps) {
       map.off("mousemove", UNKNOWN_HITBOX_LAYER_ID, showTooltip);
       map.off("mouseleave", KNOWN_HITBOX_LAYER_ID, hideTooltip);
       map.off("mouseleave", UNKNOWN_HITBOX_LAYER_ID, hideTooltip);
+      map.off("click", KNOWN_HITBOX_LAYER_ID, selectRoute);
+      map.off("click", UNKNOWN_HITBOX_LAYER_ID, selectRoute);
       hideTooltip();
     };
-  }, [routes]);
+  }, [onRouteSelect, routes]);
 
   return (
     <section className="route-map-shell min-h-0 rounded-lg border border-zinc-200 bg-zinc-100 shadow-sm">

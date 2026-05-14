@@ -28,6 +28,24 @@ export type ShippingRoute = {
   last_updated: string;
 };
 
+export type RouteDetailMetrics = {
+  reliability_pct: number;
+  average_transit_days: number;
+  delay_risk: string;
+  port_congestion_level: string;
+  sailings_per_week: number;
+  transshipment_count: number;
+  customs_complexity: string;
+  fuel_surcharge_risk: string;
+  weather_disruption_risk: string;
+  operational_note: string;
+};
+
+export type RouteDetailResponse = {
+  route: ShippingRoute;
+  details: RouteDetailMetrics;
+};
+
 export type PortFilter = {
   country: string;
   port: string;

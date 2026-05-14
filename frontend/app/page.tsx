@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { RouteListPanel } from "./components/RouteListPanel";
+import { RouteDetailsModal } from "./components/RouteDetailsModal";
 import { RoutesMap } from "./components/RoutesMap";
 import type { RouteFilters, ShippingRoute } from "./types/routes";
 
@@ -22,6 +23,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [isFiltering, setIsFiltering] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [selectedRouteId, setSelectedRouteId] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -99,6 +101,14 @@ export default function Home() {
     }
   }
 
+  const openRouteDetails = useCallback((routeId: string) => {
+    setSelectedRouteId(routeId);
+  }, []);
+
+  const closeRouteDetails = useCallback(() => {
+    setSelectedRouteId(null);
+  }, []);
+
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-950">
       <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-5 py-6 lg:h-screen lg:px-8">
@@ -134,7 +144,7 @@ export default function Home() {
             />
           ) : (
             <>
-              <RoutesMap routes={routes} />
+              <RoutesMap onRouteSelect={openRouteDetails} routes={routes} />
               <RouteListPanel
                 allRoutes={allRoutes}
                 filters={filters}
@@ -142,12 +152,18 @@ export default function Home() {
                 onApplyFilters={applyFilters}
                 onClearFilters={clearFilters}
                 onFiltersChange={setFilters}
+                onRouteSelect={openRouteDetails}
                 routes={routes}
               />
             </>
           )}
         </section>
       </div>
+      <RouteDetailsModal
+        apiBaseUrl={API_BASE_URL}
+        onClose={closeRouteDetails}
+        routeId={selectedRouteId}
+      />
     </main>
   );
 }
