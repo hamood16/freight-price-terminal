@@ -4,14 +4,23 @@ import { useEffect, useState } from "react";
 
 import { RouteListPanel } from "./components/RouteListPanel";
 import { RoutesMap } from "./components/RoutesMap";
-import type { ShippingRoute } from "./types/routes";
+import type { RouteFilters, ShippingRoute } from "./types/routes";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
 export default function Home() {
+  const [allRoutes, setAllRoutes] = useState<ShippingRoute[]>([]);
   const [routes, setRoutes] = useState<ShippingRoute[]>([]);
+  const [filters, setFilters] = useState<RouteFilters>({
+    carrier: "",
+    destination_ports: [],
+    product_category: "",
+    movement_status: "",
+    origin_ports: [],
+  });
   const [isLoading, setIsLoading] = useState(true);
+  const [isFiltering, setIsFiltering] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,15 +28,8 @@ export default function Home() {
 
     async function loadRoutes() {
       try {
-        const response = await fetch(`${API_BASE_URL}/routes`, {
-          signal: controller.signal,
-        });
-
-        if (!response.ok) {
-          throw new Error(`Routes request failed with status ${response.status}`);
-        }
-
-        const data = (await response.json()) as ShippingRoute[];
+        const data = await fetchRoutes(undefined, controller.signal);
+        setAllRoutes(data);
         setRoutes(data);
         setErrorMessage(null);
       } catch (error) {
@@ -51,6 +53,51 @@ export default function Home() {
       controller.abort();
     };
   }, []);
+
+  async function applyFilters() {
+    setIsFiltering(true);
+    setErrorMessage(null);
+
+    try {
+      const data = await fetchRoutes(filters);
+      setRoutes(data);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to apply route filters.",
+      );
+    } finally {
+      setIsFiltering(false);
+    }
+  }
+
+  async function clearFilters() {
+    const clearedFilters: RouteFilters = {
+      carrier: "",
+      destination_ports: [],
+      product_category: "",
+      movement_status: "",
+      origin_ports: [],
+    };
+
+    setFilters(clearedFilters);
+    setIsFiltering(true);
+    setErrorMessage(null);
+
+    try {
+      const data = await fetchRoutes(clearedFilters);
+      setRoutes(data);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Unable to clear route filters.",
+      );
+    } finally {
+      setIsFiltering(false);
+    }
+  }
 
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-950">
@@ -88,13 +135,58 @@ export default function Home() {
           ) : (
             <>
               <RoutesMap routes={routes} />
-              <RouteListPanel routes={routes} />
+              <RouteListPanel
+                allRoutes={allRoutes}
+                filters={filters}
+                isFiltering={isFiltering}
+                onApplyFilters={applyFilters}
+                onClearFilters={clearFilters}
+                onFiltersChange={setFilters}
+                routes={routes}
+              />
             </>
           )}
         </section>
       </div>
     </main>
   );
+}
+
+async function fetchRoutes(
+  filters?: RouteFilters,
+  signal?: AbortSignal,
+): Promise<ShippingRoute[]> {
+  const searchParams = new URLSearchParams();
+
+  if (filters?.carrier) {
+    searchParams.set("carrier", filters.carrier);
+  }
+  for (const destination of filters?.destination_ports ?? []) {
+    searchParams.append("destination_port", destination.port);
+    searchParams.append("destination_country", destination.country);
+  }
+  if (filters?.product_category) {
+    searchParams.set("product_category", filters.product_category);
+  }
+  if (filters?.movement_status) {
+    searchParams.set("movement_status", filters.movement_status);
+  }
+  for (const origin of filters?.origin_ports ?? []) {
+    searchParams.append("origin_port", origin.port);
+    searchParams.append("origin_country", origin.country);
+  }
+
+  const queryString = searchParams.toString();
+  const response = await fetch(
+    `${API_BASE_URL}/routes${queryString ? `?${queryString}` : ""}`,
+    { signal },
+  );
+
+  if (!response.ok) {
+    throw new Error(`Routes request failed with status ${response.status}`);
+  }
+
+  return (await response.json()) as ShippingRoute[];
 }
 
 function StatusCard({ title, message }: { title: string; message: string }) {
